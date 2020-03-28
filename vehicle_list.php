@@ -47,15 +47,17 @@
                 </select> 
                         <!--END OF hide_select-->
                         </div>
-
-                <p>Sort by:</p>
-                    <input type="radio" id="category_selection" name="Sort" value="year">
-                    <label for="year">Year</label><br>
-                    <input type="radio" id="category_selection" name="Sort" value="price" checked= "checked">
-                    <label for="price">Price</label><br>
-
+                
+                        <div id="sort-inline">
+                <p style="margin:0em">Sort by:</p>
+                
+                    <input type="radio" id="category-selection" name="Sort" value="year">
+                    <label id="select-year" for="year">Year</label><br>
+                    <input type="radio" id="category-selection" name="Sort" value="price" checked= "checked">
+                    <label id="select-year" for="price">Price</label><br>
+                    </div>
                 <?php } ?>
-
+                
                 <input type="submit" value="Submit" id="button" class="button blue">
                 </form>
             
