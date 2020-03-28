@@ -107,16 +107,7 @@
         $Types = get_vehicle_types();
         $Type_name = get_vehicle_type_name($Type_code);
 
-        if ($Class_code != NULL || $Class_code != FALSE){
-            $Vehicles = get_vehicles_by_class($Class_code);
-        } else if ($Type_code!= NULL || $Type_code) {
-            $Vehicles = get_vehicles_by_type($Type_code);
-        } else if ($Make != NULL | $Make != FALSE) {
-            $Vehicles = get_vehicles_by_make($Make);
-        } else {
-            $Vehicles = get_all_vehicles();
-            
-        }
+        $Vehicles = get_vehicles_by_selection($Class_code,$Type_code,$Make); 
         include('vehicle_list.php'); }
         
         
