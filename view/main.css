@@ -20,6 +20,21 @@ header {
     text-align:right;
 }
 
+#sort-inline {
+    display: inline-flex;
+    
+}
+
+#sort-selection {
+    margin: 0em;
+    
+}
+
+#select-year {
+    margin:0em;
+}
+
+
 header h1 {
     margin: 0;
     padding: .5em 0;
