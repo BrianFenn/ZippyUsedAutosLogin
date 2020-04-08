@@ -20,10 +20,9 @@
         $action = 'login';
     }
 
-    //if(!isset($_SESSION['is_valid_admin_login'])) {
-      //  $action = 'login';
-    //}
-    if ($action == 'register_admin_user') {
+    switch($action) {
+
+    case 'register_admin_user': 
         $username = filter_input(INPUT_POST, 'username');
         $password = filter_input(INPUT_POST, 'password');
         $confirm_password = filter_input(INPUT_POST, 'confirm_password');
@@ -35,8 +34,6 @@
         $error_username = "Please enter a valid username with at least 6 characters.";
         $error_reg = true;
     } else { empty($error_username); 
-        
-        
         }
 
     $uppercase = preg_match('@[A-Z]@', $password);
@@ -74,23 +71,9 @@
             
         }
 
-        //add_admin($username,$password);
-       // if ($username_exists == False) {
-        //goto admin page
-        //}
-        //}else { 
-           
-          //  include('../admin-register.php');
-            //echo "Username already exists.";
-        
-        //echo $rowcount;
-        //username_check($username); 
-        //echo $row;
-    }
+    break;
     
-
-
-    if ($action == 'login') {
+    case 'login':
         $username = filter_input(INPUT_POST, 'username');
         $password = filter_input(INPUT_POST, 'password');
         if (is_valid_admin_login($username, $password)) {
@@ -116,22 +99,25 @@
             
             include('../admin-login.php');
     }
-    }
+    break;
 
     
-    if ($action == 'register_user') {
+    case'register_user':
         
         include('../admin-register.php');
-    }
-    if ($action == 'admin_logout') {
+    break;
+    
+
+    case 'admin_logout':
         $_SESSION = array();
         session_destroy();
+        setcookie(session_name(), '-1 year');
         $login_message = 'You have been logged out.';
         include('../admin-login.php');
-    }
+    break;
 
         
-    if ($action == 'list_vehicles') {
+    case 'list_vehicles':
         $Class_code = filter_input(INPUT_GET, 'Class_code', FILTER_VALIDATE_INT);
         $Type_code = filter_input(INPUT_GET, 'Type_code', FILTER_VALIDATE_INT);
         $Make = filter_input(INPUT_GET, 'Make');
@@ -162,12 +148,14 @@
         //$Vehicles = get_all_vehicles(get_vehicles_by_class($Class_code,get_vehicles_by_type($Type_code,get_vehicles_by_make($Make))));
         
         include('vehicle_list.php');
-    }else if ($action == 'list_classes') {
+    break;
+
+    case 'list_classes':
         $Vehicle_Classes = get_vehicle_classes();
         include('class_list.php');
+    break;
 
-
-    } else if ($action == 'delete_vehicle') {
+    case 'delete_vehicle':
         $Vehicle_id = filter_input(INPUT_POST, 'Vehicle_id', FILTER_VALIDATE_INT);
         if ($Vehicle_id == NULL || $Vehicle_id == FALSE) {
             $error = "Missing or incorrect Vehicle id.";
@@ -176,7 +164,9 @@
             delete_vehicle($Vehicle_id);
             header("Location: .?Class_code=$Class_code");
         }
-    } else if ($action == 'delete_vehicle_class') {
+    break;
+
+    case 'delete_vehicle_class':
         $Class_code = filter_input(INPUT_POST, 'Class_code', FILTER_VALIDATE_INT);
         if ($Class_code == NULL || $Class_code == FALSE) {
             $error = "Missing or incorrect Class code.";
@@ -185,7 +175,9 @@
             delete_vehicle_class($Class_code);
             header("Location: .?action=show_view_edit_classes_form");
         }
-    } else if ($action == 'show_add_form') {
+    break;
+
+    case 'show_add_form':
         $Class_code = filter_input(INPUT_GET, 'Class_code', FILTER_VALIDATE_INT);
         $Type_code = filter_input(INPUT_GET, 'Type_code', FILTER_VALIDATE_INT);
         
@@ -197,8 +189,9 @@
        
         // call the functions
         include('vehicle_add.php');
-
-    } else if ($action == 'add_vehicle') {
+    break;
+    
+    case 'add_vehicle':
         $Vehicle_year = filter_input(INPUT_POST, 'Vehicle_year');
         $Make = filter_input(INPUT_POST, 'Make');
         $Model = filter_input(INPUT_POST, 'Model');
@@ -214,25 +207,30 @@
             add_vehicle($Vehicle_year, $Make, $Model, $Price, $Type_code, $Class_code);
             header("Location: .?Class_code=$Class_code");
         //}
-    } else if ($action == 'add_vehicle_class') {
+    break;
+
+    case 'add_vehicle_class':
             
         $Class_name = filter_input(INPUT_POST, 'Class_name');
         add_vehicle_class($Class_name);
-        header("Location: .?action=show_view_edit_classes_form");}
-    
+        header("Location: .?action=show_view_edit_classes_form");
+    break;
 
-    else if ($action == 'show_view_edit_classes_form') {
+   case 'show_view_edit_classes_form':
         $Class_code = filter_input(INPUT_GET, 'Class_code', 
         FILTER_VALIDATE_INT);
         $Classes = get_vehicle_classes();
 
         include('class_list.php'); 
-        } else if ($action == 'add_vehicle_type') {
+   break;
+        
+   case 'add_vehicle_type':
         $Type_name = filter_input(INPUT_POST, 'Type_name');
         add_vehicle_Type($Type_name);
         header("Location: .?action=show_view_edit_types_form");
+   break;
 
-    }else if ($action == 'delete_vehicle_type') {
+    case 'delete_vehicle_type':
         $Type_code = filter_input(INPUT_POST, 'Type_code', FILTER_VALIDATE_INT);
         if ($Type_code == NULL || $Type_code == FALSE) {
             $error = "Missing or incorrect Type code.";
@@ -241,16 +239,16 @@
             delete_vehicle_type($Type_code);
             header("Location: .?action=show_view_edit_types_form");
         }
-    }
+    break;
 
-    else if ($action == 'show_view_edit_types_form') {
+    case 'show_view_edit_types_form':
         $Type_code = filter_input(INPUT_GET, 'Type_code', 
         FILTER_VALIDATE_INT);
         $Types = get_vehicle_types();
 
         include('type_list.php'); 
-    }
-
+    break;
+}
 
 
 ?> 
