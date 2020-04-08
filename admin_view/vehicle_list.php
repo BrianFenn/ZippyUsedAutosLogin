@@ -1,6 +1,8 @@
-<?php include '../view/header.php';
+<?php include('../view/header.php');
+require_once('../util/valid_admin.php');
 
 ?>
+
 
 
 
@@ -115,6 +117,13 @@
             <br>
             <br>
             <a href="?action=show_view_edit_types_form">View/Edit Types</a>
+            <br>
+            <br>
+            <a href="?action=register_user">Add a new user</a>
+            <br>
+            <br>
+            <a href="?action=admin_logout">Logout</a>
+
         </p>
     </section>
 </main>

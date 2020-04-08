@@ -1,4 +1,5 @@
 <?php include '../view/header.php'; 
+require_once('../util/valid_admin.php');
 ?>
 
 <main>

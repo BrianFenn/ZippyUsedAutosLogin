@@ -1,4 +1,6 @@
-<?php include '../view/header.php'; ?>
+<?php include '../view/header.php';
+require_once('../util/valid_admin.php');
+ ?>
 <main>
     <h1>Add Vehicle</h1>
     <form action="index.php" method="post" id="add_product_form">

@@ -1,16 +1,133 @@
 <?php
+    session_start();
     require('../model/database.php');
+    require('../model/admin_db.php');
     require('../model/vehicle_db.php');
     require('../model/class_db.php');
     require('../model/type_db.php');
     require('../model/make_db.php');
-
+    
+    //require('../admin-register.php');
     $action = filter_input(INPUT_POST, 'action');
     if ($action == NULL) {
         $action = filter_input(INPUT_GET, 'action');
         if ($action == NULL) {
             $action = 'list_vehicles';
         }
+    }
+
+    if (!isset($_SESSION['is_valid_admin_login'])) {
+        $action = 'login';
+    }
+
+    //if(!isset($_SESSION['is_valid_admin_login'])) {
+      //  $action = 'login';
+    //}
+    if ($action == 'register_admin_user') {
+        $username = filter_input(INPUT_POST, 'username');
+        $password = filter_input(INPUT_POST, 'password');
+        $confirm_password = filter_input(INPUT_POST, 'confirm_password');
+        //username_check($username);
+        //$username_exists = False;
+        $error_reg = false;
+    //is username empty
+    if (empty($username)  || strlen($username) <= 5)   {
+        $error_username = "Please enter a valid username with at least 6 characters.";
+        $error_reg = true;
+    } else { empty($error_username); 
+        
+        
+        }
+
+    $uppercase = preg_match('@[A-Z]@', $password);
+    $lowercase = preg_match('@[a-z]@', $password);
+    $number = preg_match('@[0-9]@', $password);
+    if (isset($password) && $uppercase && $lowercase && $number && strlen($password) > 7) {
+        empty($error_password);
+        
+    }else { empty($error_password);
+        $error_password = "Password must be at least: 1 uppercase and 1 lowercase letter, 1 number, and a minimum of 8 characters long.";
+        $error_reg = true;
+        }
+
+    if ($confirm_password == $password) {
+        empty($error_confirm_password);
+        
+       
+    }else { $error_confirm_password = "The passwords you entered do not match.";
+        $error_reg = true;
+        }
+
+        if ($error_reg == false) {
+            username_check($username);
+            if (empty(username_check($username))) {
+                //$username_exists = True;
+                add_admin($username,$password);
+                include('../admin-login.php');
+            } else { 
+                $user_name_exists = "Username is taken.";
+                include('../admin-register.php');
+            }
+        }
+        if ($error_reg == True) {
+            include('../admin-register.php');
+            
+        }
+
+        //add_admin($username,$password);
+       // if ($username_exists == False) {
+        //goto admin page
+        //}
+        //}else { 
+           
+          //  include('../admin-register.php');
+            //echo "Username already exists.";
+        
+        //echo $rowcount;
+        //username_check($username); 
+        //echo $row;
+    }
+    
+
+
+    if ($action == 'login') {
+        $username = filter_input(INPUT_POST, 'username');
+        $password = filter_input(INPUT_POST, 'password');
+        if (is_valid_admin_login($username, $password)) {
+            $_SESSION['is_valid_admin_login'] = true;
+            $Class_code = filter_input(INPUT_GET, 'Class_code', FILTER_VALIDATE_INT);
+        $Type_code = filter_input(INPUT_GET, 'Type_code', FILTER_VALIDATE_INT);
+        $Make = filter_input(INPUT_GET, 'Make');
+        $Sort = filter_input(INPUT_GET, 'Sort');
+        $Vehicles = get_vehicles_by_selection($Class_code,$Type_code,$Make); 
+
+        
+        // call the functions
+        $Class_name = get_vehicle_class_name($Class_code);
+        $Vehicle_Classes = get_vehicle_classes();
+
+        $Types = get_vehicle_types();
+        $Type_name = get_vehicle_type_name($Type_code);
+
+        $Vehicle_Makes = get_vehicle_makes();
+            include('vehicle_list.php');
+        } else {
+            $login_message = 'You must login to view this page.';
+            
+            include('../admin-login.php');
+    }
+    }
+
+    
+    if ($action == 'register_user') {
+        
+        include('../admin-register.php');
+    }
+    if ($action == 'admin_logout') {
+        $_SESSION = array();
+        session_destroy();
+        $login_message = 'You have been logged out.';
+        include('../admin-login.php');
     }
 
         
@@ -133,6 +250,8 @@
 
         include('type_list.php'); 
     }
+
+
 
 ?> 
 
