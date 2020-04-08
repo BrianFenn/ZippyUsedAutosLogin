@@ -92,7 +92,7 @@
     //echo $user_name_exists;
     ?>
 
-    
+    <a href ="index.php">Return to Main Menu</a>
 
 </main>
 <?php include 'view/footer.php'; ?>
