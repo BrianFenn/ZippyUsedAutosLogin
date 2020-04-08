@@ -11,24 +11,17 @@
     //$firstname = filter_input(INPUT_GET,'firstname');
     
     $lifetime = 60 * 60 * 24; 
-    //session_set_cookie_params($lifetime, '/');
-    //session_name('login');
+    session_set_cookie_params($lifetime, '/');
+    session_name('login');
     
     //session_write_close();
     
     //if (isset($_SESSION['firstname'] )) {
       //  $sessionfirstname = $_SESSION['firstname'];
      //};
-     if ($action == NULL) {
-        $action = filter_input(INPUT_GET, 'action');
-        if ($action == NULL) {
-            $action = 'list_vehicles';
-        }
-        
-    }
-    switch($action) {
+    
 
-    case 'register_customer':
+    if ($action == 'register_customer') {
         $firstname = filter_input(INPUT_GET, 'firstname');
            
         //session_regenerate_id();
@@ -45,8 +38,8 @@
         $sessionfirstname = $_SESSION['firstname'];
         //session_start();
         include('thankyou.php');
-    break;    
-    
+        
+    }
 
     
         $removecookie = function () {
@@ -89,11 +82,17 @@
     }
 */
 
-  
-  
+    $action = filter_input(INPUT_POST, 'action');
+    if ($action == NULL) {
+        $action = filter_input(INPUT_GET, 'action');
+        if ($action == NULL) {
+            $action = 'list_vehicles';
+        }
+        
+    }
 
        
-    case 'list_vehicles':
+    if ($action == 'list_vehicles') {
         $Class_code = filter_input(INPUT_GET, 'Class_code', FILTER_VALIDATE_INT);
         $Type_code = filter_input(INPUT_GET, 'Type_code', FILTER_VALIDATE_INT);
         $Make = filter_input(INPUT_GET, 'Make');
@@ -110,8 +109,8 @@
         $Type_name = get_vehicle_type_name($Type_code);
 
         $Vehicles = get_vehicles_by_selection($Class_code,$Type_code,$Make); 
-        include('vehicle_list.php'); 
-    break;
+        include('vehicle_list.php'); }
+        
         
         
         //$Vehicles = get_vehicles_by_class($Class_code);
@@ -127,7 +126,10 @@
         
         //include('vehicle_list.php');
     
-}
+
 ?> 
 
    
+
+   
+
