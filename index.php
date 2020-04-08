@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require('model/database.php');
     require('model/vehicle_db.php');
     require('model/class_db.php');
@@ -12,7 +13,7 @@
     $lifetime = 60 * 60 * 24; 
     session_set_cookie_params($lifetime, '/');
     session_name('login');
-    session_start();
+    
     //session_write_close();
     
     //if (isset($_SESSION['firstname'] )) {
