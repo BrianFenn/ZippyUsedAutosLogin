@@ -50,7 +50,7 @@ function is_valid_admin_login($username, $password) {
     $row = $statement->fetch();
     $statement->closeCursor();
     if (empty($row['password'])) {
-        echo "Please enter a valid password.<br>"; 
+        //echo "Please enter a valid password.<br>"; 
         $hash = $row['password'] = NULL;
         //$hash = 0;
         echo ($row['password']);
@@ -61,9 +61,11 @@ function is_valid_admin_login($username, $password) {
     }
      //check is this bracket needs to be moved down one line   
      if (password_verify($password, $hash)) {
-         echo 'Password is valid.';
-     }  
+         //echo 'Password is valid.';
+     }  else { $_SESSION['valid_login'] = "Please enter valid login credentials."; }
+     
     return password_verify($password, $hash);
+    return $valid_login;
     }
 
 function username_check($username) {
