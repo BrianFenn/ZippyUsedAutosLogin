@@ -11,7 +11,7 @@
         
 
         <label>Please enter your first name:</label>
-        <input type="text" name="firstname" />
+        <input type="text" name="firstname" required="" />
         <br>
         
         <input  id="button" type="submit" value="Register" />
