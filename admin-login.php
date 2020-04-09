@@ -34,7 +34,7 @@
                 <input type="password" class="text" name="password">
                 <?php
                 if (empty($password)) {
-                $error_password_invalid = "Please enter a valid password.";
+                $error_password_invalid = "Please enter a password.";
                 echo $error_password_invalid;
                 empty($password);
                 empty($valid_login);
