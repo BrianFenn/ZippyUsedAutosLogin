@@ -38,7 +38,7 @@
                 echo $error_password_invalid;
                 empty($password);
                 empty($valid_login);
-                } if (!empty($_SESSION['valid_login']) && !empty($password)) {echo "Invalid Password.";
+                } if (!empty($_SESSION['valid_login']) && !empty($password)) {echo "Invalid Username and/or Password.";
                 empty($_SESSION['valid_login']);
                 empty($password);};
                 
