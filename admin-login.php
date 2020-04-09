@@ -16,7 +16,7 @@
         <main>
             <h1>Login</h1>
 
-            <form action="." class="aligned" method="post">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="aligned" method="post">
                 <input type="hidden" name="action" value="login">
 
                 <label>Username:*</label>
