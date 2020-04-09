@@ -15,7 +15,7 @@
 
 <main>
     <h1>Register a new admin user</h1>
-    <form action="." method="POST" id="add_product_form">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="add_product_form">
         
         <input type="hidden" name="action" value="register_admin_user">
 
