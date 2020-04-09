@@ -1,7 +1,7 @@
 <?php
     //require_once('util/secure_conn.php');  // require a secure connection
     include('view/header.php');
-
+    include_once("model/admin_db.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,9 +34,14 @@
                 <input type="password" class="text" name="password">
                 <?php
                 if (empty($password)) {
-                $error_password_invalid = "Please enter your password.";
+                $error_password_invalid = "Please enter a valid password.";
                 echo $error_password_invalid;
-                }
+                empty($password);
+                empty($valid_login);
+                } if (!empty($_SESSION['valid_login']) && !empty($password)) {echo "Invalid Password.";
+                empty($_SESSION['valid_login']);
+                empty($password);};
+                
                 ?>
                 <br>
 
