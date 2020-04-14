@@ -10,25 +10,25 @@ require_once('../util/valid_admin.php');
         
 
         <label>Year:</label>
-        <input type="text" name="Vehicle_year" />
+        <input type="text" name="Vehicle_year" required="" />
         <br>
         
         <label>Make:</label>
-        <input type="text" name="Make" />
+        <input type="text" name="Make" required="" />
         <br>
 
         <label>Model:</label>
-        <input type="text" name="Model" />
+        <input type="text" name="Model" required="" />
         <br>
 
         <label>Price:</label>
-        <input type="text" name="Price" />
+        <input type="text" name="Price" required="" />
         <br>
 
         <label>Vehicle Type:</label>
         <select id="mobile_add_vehicle" name="Type_code">
         <?php foreach ( $Types as $Type ) : ?>
-            <option value="<?php echo $Type['Type_code']; ?>">
+            <option value="<?php echo $Type['Type_code']; ?>" required="">
                 <?php echo $Type['Type_name']; ?>
             </option>
         <?php endforeach; ?>
@@ -37,7 +37,7 @@ require_once('../util/valid_admin.php');
         <label>Vechicle Class:</label>
         <select id="mobile_add_vehicle" name="Class_code">
         <?php foreach ( $Vehicle_Classes as $Class ) : ?>
-            <option value="<?php echo $Class['Class_code']; ?>">
+            <option value="<?php echo $Class['Class_code']; ?>" required="">
                 <?php echo $Class['Class_name']; ?>
             </option>
         <?php endforeach; ?>
