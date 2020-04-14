@@ -10,9 +10,9 @@
     $action = filter_input(INPUT_GET, 'action');
     //$firstname = filter_input(INPUT_GET,'firstname');
     
-    $lifetime = 60 * 60 * 24; 
-    session_set_cookie_params($lifetime, '/');
-    session_name('login');
+    //$lifetime = 60 * 60 * 24; 
+    //session_set_cookie_params($lifetime, '/');
+    //session_name('login');
     
     //session_write_close();
     
@@ -82,17 +82,19 @@
     }
 */
 
-    $action = filter_input(INPUT_POST, 'action');
-    if ($action == NULL) {
-        $action = filter_input(INPUT_GET, 'action');
-        if ($action == NULL) {
+    $action = filter_input(INPUT_POST, 'action') ?? filter_input(INPUT_GET, 'action') ?? 'list_vehicles';
+    //if ($action == NULL) {
+      //  $action = filter_input(INPUT_GET, 'action');
+       // if ($action == NULL) {
             $action = 'list_vehicles';
-        }
-        
-    }
+        //}
+    //}
 
        
-    if ($action == 'list_vehicles') {
+    switch ($action) {
+    
+        default: // 'list_vehicles' 
+        
         $Class_code = filter_input(INPUT_GET, 'Class_code', FILTER_VALIDATE_INT);
         $Type_code = filter_input(INPUT_GET, 'Type_code', FILTER_VALIDATE_INT);
         $Make = filter_input(INPUT_GET, 'Make');
@@ -128,8 +130,3 @@
     
 
 ?> 
-
-   
-
-   
-
