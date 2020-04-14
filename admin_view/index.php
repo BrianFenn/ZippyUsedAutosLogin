@@ -8,13 +8,14 @@
     require('../model/make_db.php');
     
     //require('../admin-register.php');
-    $action = filter_input(INPUT_POST, 'action');
-    if ($action == NULL) {
-        $action = filter_input(INPUT_GET, 'action');
-        if ($action == NULL) {
-            $action = 'list_vehicles';
-        }
-    }
+    $action = filter_input(INPUT_POST, 'action') ?? filter_input(INPUT_GET, 'action') ?? 'list_vehicles';
+    //if ($action == NULL) {
+      //  $action = filter_input(INPUT_GET, 'action');
+       // if ($action == NULL) {
+           // $action = 'list_vehicles';
+        //}
+    //}
+
 
     if (!isset($_SESSION['is_valid_admin_login'])) {
         $action = 'login';
@@ -173,7 +174,7 @@
 
     case 'delete_vehicle':
         $Vehicle_id = filter_input(INPUT_POST, 'Vehicle_id', FILTER_VALIDATE_INT);
-        if ($Vehicle_id == NULL || $Vehicle_id == FALSE) {
+        if (empty($Vehicle_id) ) {
             $error = "Missing or incorrect Vehicle id.";
             include('../errors/error.php');
         } else {
@@ -184,7 +185,7 @@
 
     case 'delete_vehicle_class':
         $Class_code = filter_input(INPUT_POST, 'Class_code', FILTER_VALIDATE_INT);
-        if ($Class_code == NULL || $Class_code == FALSE) {
+        if (empty($Class_code)) {
             $error = "Missing or incorrect Class code.";
             include('../errors/error.php');
         } else {
@@ -249,7 +250,7 @@
 
     case 'delete_vehicle_type':
         $Type_code = filter_input(INPUT_POST, 'Type_code', FILTER_VALIDATE_INT);
-        if ($Type_code == NULL || $Type_code == FALSE) {
+        if (empty($Type_code)) {
             $error = "Missing or incorrect Type code.";
             include('../errors/error.php');
         } else {
