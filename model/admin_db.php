@@ -49,15 +49,16 @@ function is_valid_admin_login($username, $password) {
     $statement->execute();
     $row = $statement->fetch();
     $statement->closeCursor();
-    if (empty($row['password'])) {
+    //ternary statement below subistuted for my method
+    $hash = (!empty($row['password'])) ? $row['password'] : NULL; {
         //echo "Please enter a valid password.<br>"; 
-        $hash = $row['password'] = NULL;
+        //$hash = $row['password'] = NULL;
         //$hash = 0;
-        echo ($row['password']);
-      } else {
+        //echo ($row['password']);
+      //} else {
       
     //if (isset($password)) {
-    $hash = $row['password'];
+    //$hash = $row['password'];
     }
      //check is this bracket needs to be moved down one line   
      if (password_verify($password, $hash)) {
