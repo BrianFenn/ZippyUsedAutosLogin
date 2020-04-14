@@ -21,25 +21,6 @@
      //};
     
 
-    if ($action == 'register_customer') {
-        $firstname = filter_input(INPUT_GET, 'firstname');
-           
-        //session_regenerate_id();
-        //setting up the session cookie
-       
-        //end of setup for session cookie, now I can assign session variables
-        
-        //session_name('login');
-        
-        //session_write_close();
-
-
-        $_SESSION['firstname'] = $firstname;
-        $sessionfirstname = $_SESSION['firstname'];
-        //session_start();
-        include('thankyou.php');
-        
-    }
 
     
         $removecookie = function () {
@@ -111,22 +92,30 @@
         $Type_name = get_vehicle_type_name($Type_code);
 
         $Vehicles = get_vehicles_by_selection($Class_code,$Type_code,$Make); 
-        include('vehicle_list.php'); }
+        include('vehicle_list.php'); 
+        break;
         
         
-        
-        //$Vehicles = get_vehicles_by_class($Class_code);
-        
-        //if ( $Class_code != 0 && $Type_code != 0 && $Make != 0) {
-            //$Vehicles = get_vehicles_by_class($Class_code);
-            //$Vehicles = get_all_vehicles(get_vehicles_by_class($Class_code,get_vehicles_by_type($Type_code,get_vehicles_by_make($Make))));
-        //}
-
-        //$Vehicles = get_vehicles_by_selection(); 
-        //Refined_Vehicle_Results = get_all_vehicles(get_vehicles_by_class(get_vehicles_by_type(get_vehicles_by_make())));
-        //$Vehicles = get_all_vehicles(get_vehicles_by_class($Class_code,get_vehicles_by_type($Type_code,get_vehicles_by_make($Make))));
-        
-        //include('vehicle_list.php');
+        case 'register_customer': 
+            $firstname = filter_input(INPUT_GET, 'firstname');
+               
+            //session_regenerate_id();
+            //setting up the session cookie
+           
+            //end of setup for session cookie, now I can assign session variables
+            
+            //session_name('login');
+            
+            //session_write_close();
     
+    
+            $_SESSION['firstname'] = $firstname;
+            $sessionfirstname = $_SESSION['firstname'];
+            //session_start();
+            include('thankyou.php');
+
+        break;
+    }
+      
 
 ?> 
